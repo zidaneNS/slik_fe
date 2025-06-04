@@ -16,6 +16,10 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 export default function Page() {
     const { user } = useAuth();
     
+    if (!user) {
+        redirect('/');
+    }
+    
     const [isCreate, setIsCreate] = useState<boolean>(false);
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
     const [selectedSlik, setSelectedSlik] = useState<Slik | null>(null);
@@ -46,13 +50,11 @@ export default function Page() {
                     TTL: selectedForm.ktp.TTL
                 }
             },
-            category: slik.category
+            category: slik.category,
+            number: slik.number
         }
     });
 
-    if (!user) {
-        return redirect('/');
-    }
 
     return (
         <main className="flex flex-col min-h-screen gap-y-4 bg-slate-100 px-8 pt-52">
@@ -92,7 +94,7 @@ export default function Page() {
                     </div>
                     {filteredSliks && filteredSliks.map((slik, idx) => (
                         <div key={idx} className="col-span-9 grid grid-cols-9 px-2 py-3">
-                            <div className="w-full text-center h-auto break-words whitespace-normal px-2">{idx + 1}</div>
+                            <div className="w-full text-center h-auto break-words whitespace-normal px-2">{slik.number}</div>
                             <div className="w-full text-center h-auto break-words whitespace-normal px-2">{slik.form.tanggal_pengajuan.toString()}</div>
                             <div className="w-full text-center h-auto break-words whitespace-normal px-2">{slik.form.ktp.nama}</div>
                             <div className="w-full text-center h-auto break-words whitespace-normal px-2">{slik.form.ktp.alamat}</div>

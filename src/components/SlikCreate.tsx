@@ -7,6 +7,7 @@ import { CategoryType, CreateSlikState } from "@/lib/type";
 import { Dispatch, SetStateAction, useActionState } from "react";
 import { MdClose } from "react-icons/md";
 import ErrorInputField from "./ErrorInputField";
+import InputField from "./InputField";
 
 export default function SlikCreate({ setIsCreate }: { setIsCreate: Dispatch<SetStateAction<boolean>> }) {
     const { forms } = useForm();
@@ -26,7 +27,8 @@ export default function SlikCreate({ setIsCreate }: { setIsCreate: Dispatch<SetS
     const createAction = async (state: CreateSlikState, formData: FormData) => {
         const validatedFields = CreateSlikSchema.safeParse({
             form_id: formData.get('form_id'),
-            category_id: formData.get('category_id')
+            category_id: formData.get('category_id'),
+            number: formData.get('number')
         });
 
         console.log(validatedFields.data);
@@ -35,9 +37,9 @@ export default function SlikCreate({ setIsCreate }: { setIsCreate: Dispatch<SetS
             return { errors: validatedFields.error.flatten().fieldErrors }
         }
 
-        const { form_id, category_id } = validatedFields.data;
+        const { form_id, category_id, number } = validatedFields.data;
 
-        const { message } = await createSlik({ form_id, category_id });
+        const { message } = await createSlik({ form_id, category_id, number });
 
         if (message) {
             return { message }
@@ -77,6 +79,9 @@ export default function SlikCreate({ setIsCreate }: { setIsCreate: Dispatch<SetS
                     </select>
                     {state?.errors?.category_id && (<ErrorInputField errMsg={state.errors.category_id} />)}
                 </div>
+                <InputField type="number" name="number" placeholder="Enter number" displayText="Number :">
+                        {state?.errors?.number && (<ErrorInputField errMsg={state.errors.number} />)}
+                </InputField>
                     {state?.message && (<ErrorInputField errMsg={state.message} />)}
                 {pending ? (
                     <div className="w-full text-center">Loading...</div>

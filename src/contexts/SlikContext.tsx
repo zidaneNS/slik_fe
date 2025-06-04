@@ -1,5 +1,5 @@
 import { Slik } from "@/lib/type"
-import React, { createContext, useContext, useEffect, useState } from "react"
+import React, { createContext, useCallback, useContext, useEffect, useState } from "react"
 import useAuth from "./AuthContext"
 import { baseUrl } from "@/lib/baseUrl"
 import { CreateSlikDto } from "@/lib/dto"
@@ -26,7 +26,7 @@ export function SlikProvider({ children }: { children: React.ReactNode }) {
     const [sliks, setSliks] = useState<Slik[] | null>(null);
     const { user } = useAuth();
 
-    const getSliks = async () => {
+    const getSliks = useCallback(async () => {
         try {
             const response = await fetch(`${baseUrl}/sliks`, {
                 method: "GET",
@@ -49,7 +49,7 @@ export function SlikProvider({ children }: { children: React.ReactNode }) {
         } catch (err) {
             console.log(err);
         }
-    }
+    }, [user]);
 
     useEffect(() => {
         if (user) {

@@ -16,5 +16,6 @@ export const CreateFormSchema = z.object({
 
 export const CreateSlikSchema =  z.object({
     form_id: z.string().min(1, 'form required'),
-    category_id: z.string().min(1, 'category required')
+    category_id: z.string().min(1, 'category required'),
+    number: z.string().min(1, 'number field required')
 })

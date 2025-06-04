@@ -1,5 +1,5 @@
 import { Form } from "@/lib/type"
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
 import useAuth from "./AuthContext";
 import { baseUrl } from "@/lib/baseUrl";
 import { CreateFormDto } from "@/lib/dto";
@@ -26,7 +26,7 @@ export function FormProvider({ children }: { children: React.ReactNode }) {
     const [forms, setForms] = useState<Form[] | null>(null);
     const { user } = useAuth();
 
-    const getForms = async () => {
+    const getForms = useCallback(async () => {
         try {
             const response = await fetch(`${baseUrl}/forms`, {
                 method: "GET",
@@ -45,10 +45,9 @@ export function FormProvider({ children }: { children: React.ReactNode }) {
         } catch(err) {
             console.log(err);
         }
-    }
+    }, [user]);
     
     useEffect(() => {
-
         if (user) {
             getForms();
         }

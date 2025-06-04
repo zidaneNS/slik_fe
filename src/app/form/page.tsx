@@ -14,6 +14,11 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 
 export default function Page() {
     const { user } = useAuth();
+    
+    if (!user) {
+        redirect('/');
+    }
+    
     const [isCreate, setIsCreate] = useState<boolean>(false);
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
     const [selectedForm, setSelectedForm] = useState<Form | null>(null);
@@ -24,10 +29,6 @@ export default function Page() {
     const handleDelete = (form: Form) => {
         setSelectedForm(form);
         setIsDeleting(true);
-    }
-
-    if (!user) {
-        return redirect('/');
     }
     
     return (

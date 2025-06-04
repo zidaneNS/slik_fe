@@ -33,7 +33,8 @@ export type CreateFormState = | {
 export type CreateSlikState = | {
     errors?: {
         form_id?: string[],
-        category_id?: string[]
+        category_id?: string[],
+        number?: string[]
     },
     message?: string
 } | undefined
@@ -62,5 +63,6 @@ export type Ktp = {
 export type Slik = {
     id: string | number,
     form: Form,
-    category: CategoryType
+    category: CategoryType,
+    number: string | number
 }

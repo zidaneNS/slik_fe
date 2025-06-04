@@ -14,5 +14,6 @@ export type CreateFormDto = {
 
 export type CreateSlikDto = {
     form_id: string | number,
-    category_id: string | number
+    category_id: string | number,
+    number: string | number
 }

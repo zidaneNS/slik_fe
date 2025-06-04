@@ -1,3 +1,10 @@
+export type CategoryName = "nik" | "nama"
+
+export type CategoryType = {
+    id: string | number,
+    category_name: CategoryName
+}
+
 export type User = {
     token: string,
     name: string
@@ -42,4 +49,10 @@ export type Ktp = {
     NIK: string,
     alamat: string,
     TTL: string,
+}
+
+export type Slik = {
+    id: string | number,
+    form: Form,
+    category: CategoryType
 }

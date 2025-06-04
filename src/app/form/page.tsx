@@ -1,6 +1,6 @@
 'use client';
 
-import DeleteModal from "@/components/DeleteModal";
+import DeleteForm from "@/components/DeleteForm";
 import FormCreate from "@/components/FormCreate";
 import Modal from "@/components/Modal";
 import useAuth from "@/contexts/AuthContext";
@@ -17,19 +17,19 @@ export default function Page() {
     const [isCreate, setIsCreate] = useState<boolean>(false);
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
     const [selectedForm, setSelectedForm] = useState<Form | null>(null);
-
-    if (!user) {
-        return redirect('/');
-    }
-
+    
     const { forms } = useForm();
     const { kredits } = useKredit();
-
+    
     const handleDelete = (form: Form) => {
         setSelectedForm(form);
         setIsDeleting(true);
     }
 
+    if (!user) {
+        return redirect('/');
+    }
+    
     return (
         <main className="flex flex-col min-h-screen gap-y-4 bg-slate-100 px-8 pt-52">
             {isCreate && (
@@ -39,7 +39,7 @@ export default function Page() {
             )}
             {isDeleting && (
                 <Modal>
-                    <DeleteModal
+                    <DeleteForm
                         form={selectedForm!}
                         setIsDeleting={setIsDeleting}
                     />

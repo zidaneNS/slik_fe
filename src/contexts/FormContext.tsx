@@ -52,7 +52,7 @@ export function FormProvider({ children }: { children: React.ReactNode }) {
         if (user) {
             getForms();
         }
-    }, [user]);
+    }, [user, getForms]);
 
     const createForm = async (createFormDto: CreateFormDto) => {
         if (user) {

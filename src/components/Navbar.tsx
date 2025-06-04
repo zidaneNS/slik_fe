@@ -10,7 +10,7 @@ import { GoDatabase } from "react-icons/go";
 import { LuLogOut } from "react-icons/lu";
 
 export default function Navbar() {
-    const { user } = useAuth();
+    const { user, logout } = useAuth();
     const pathname = usePathname();
 
     type NavLink = {
@@ -32,6 +32,8 @@ export default function Navbar() {
         }
     ]
 
+    const handleLogout = async () => await logout();
+
     if (user) {
         return (
             <nav className="w-full fixed top-0 px-8 bg-white grid grid-rows-2 divide-y-2 divide-slate-200">
@@ -39,7 +41,7 @@ export default function Navbar() {
                     <h1 className="text-xl font-semibold">Register SLIK Bank Jatim</h1>
                     <div className="flex gap-x-4 items-center">
                         <p className="text-slate-400">Welcome, {user.name}</p>
-                        <button className="flex items-center gap-x-2 px-4 py-2 border border-black rounded-md cursor-pointer hover:bg-slate-600 hover:text-white hover:border-none duration-300">
+                        <button onClick={handleLogout} className="flex items-center gap-x-2 px-4 py-2 border border-black rounded-md cursor-pointer hover:bg-slate-600 hover:text-white hover:border-none duration-300">
                             <LuLogOut className="w-4" />
                             <p>Logout</p>
                         </button>

@@ -15,6 +15,7 @@ export default function DeleteModal({
 }) {
     const { deleteForm } = useForm();
     const deleteAction = async (state: CreateFormState) => {
+        console.log(state);
         const { message } = await deleteForm(form.id);
 
         if (message) {

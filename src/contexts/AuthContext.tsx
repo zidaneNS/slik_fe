@@ -1,18 +1,19 @@
 import { baseUrl } from "@/lib/baseUrl";
 import { LoginDto } from "@/lib/dto"
 import { User } from "@/lib/type";
+import { redirect } from "next/navigation";
 import React, { createContext, useContext, useState } from "react";
 
 type AuthContextType = {
     user: User | null,
     login: (loginDto: LoginDto) => Promise<{ message?: string }>;
-    logout: () => void;
+    logout: () => Promise<void>;
 }
 
 const initContext: AuthContextType = {
     user: null,
     login: async () => { return {}},
-    logout: () => {}
+    logout: async () => {}
 }
 
 const authContext = createContext<AuthContextType>(initContext);
@@ -53,8 +54,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
     }
 
-    const logout = () => {
-        console.log('logout');
+    const logout = async () => {
+        try {
+            const response = await  fetch(`${baseUrl}/logout`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${user!.token}`
+                }
+            });
+
+            if (response.status === 204) {
+                setUser(null);
+                redirect('/');
+            }
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     return <authContext.Provider value={{ user, login, logout }}>{children}</authContext.Provider>

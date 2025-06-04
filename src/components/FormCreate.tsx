@@ -68,7 +68,7 @@ export default function FormCreate({ setIsCreate }: { setIsCreate: Dispatch<SetS
                     {state?.errors?.tanggal_pengajuan && (<ErrorInputField errMsg={state.errors.tanggal_pengajuan} />)}
                 </div>
                 <div className="flex flex-col gap-y-2 w-full">
-                    <label htmlFor="kredit_id" className="text-lg text-semibold">Kredit :</label>
+                    <label htmlFor="kredit_id" className="text-lg font-semibold">Kredit :</label>
                     <select name="kredit_id" id="kredit_id" className="px-4 py-2 border border-slate-400 rounded-md">
                         <option value="">--Pilih Kredit--</option>
                         {kredits && kredits.map((kredit, idx) => (

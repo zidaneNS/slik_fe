@@ -13,3 +13,8 @@ export const CreateFormSchema = z.object({
     tanggal_pengajuan: z.string().date(),
     kredit_id: z.number().min(1, 'kredit field required')
 });
+
+export const CreateSlikSchema =  z.object({
+    form_id: z.string().min(1, 'form required'),
+    category_id: z.string().min(1, 'category required')
+})

@@ -1,1 +1,1 @@
-export const baseUrl = "https://8000-firebase-pkl-1748422095676.cluster-iktsryn7xnhpexlu6255bftka4.cloudworkstations.dev/api";
+export const baseUrl = "http://127.0.0.1:8000/api";

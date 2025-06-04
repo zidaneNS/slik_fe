@@ -30,6 +30,14 @@ export type CreateFormState = | {
     message?: string
 } | undefined
 
+export type CreateSlikState = | {
+    errors?: {
+        form_id?: string[],
+        category_id?: string[]
+    },
+    message?: string
+} | undefined
+
 export type Kredit = {
     id: string | number,
     nama_ao: string,
